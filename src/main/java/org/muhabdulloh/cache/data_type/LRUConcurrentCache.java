@@ -14,7 +14,6 @@ public class LRUConcurrentCache<K, V> extends LRUCache<K, V> {
     public LRUConcurrentCache(int size) {
         super(size);
         this.cacheMap = new ConcurrentHashMap<>();
-        this.listKeys = new LinkedList<>();
     }
 
     @Override
