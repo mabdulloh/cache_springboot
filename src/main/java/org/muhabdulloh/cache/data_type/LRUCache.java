@@ -7,12 +7,14 @@ import java.util.*;
 @Slf4j
 public class LRUCache<K, V> implements Cache<K, V> {
 
-    private final int size;
-    private final Map<K, V> cacheMap = new HashMap<>();
-    private final LinkedList<K> listKeys = new LinkedList<>();
+    protected int size;
+    protected Map<K, V> cacheMap;
+    protected LinkedList<K> listKeys;
 
     public LRUCache(int size) {
         this.size = size;
+        cacheMap = new HashMap<>();
+        listKeys = new LinkedList<>();
     }
 
     @Override
