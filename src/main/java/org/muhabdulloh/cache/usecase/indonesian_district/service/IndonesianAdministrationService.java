@@ -36,11 +36,6 @@ public class IndonesianAdministrationService implements IndonesianRegencyService
         }
     }
 
-    @Override
-    public String getCodeFromName(String name) {
-        return "";
-    }
-
     private static boolean isValidCode(String code) {
         return REGENCY_PATTERN.matcher(code).matches();
     }
