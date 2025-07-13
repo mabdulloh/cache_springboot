@@ -1,8 +1,10 @@
 package org.muhabdulloh.cache.usecase.indonesian_district.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.muhabdulloh.cache.data_type.LRUCache;
 import org.muhabdulloh.cache.exception.ValidationException;
+import org.muhabdulloh.cache.usecase.indonesian_district.client.RegencyClient;
 import org.muhabdulloh.cache.usecase.indonesian_district.dto.IndonesianRegency;
 import org.springframework.stereotype.Service;
 
@@ -10,8 +12,10 @@ import java.util.regex.Pattern;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class IndonesianAdministrationService implements IndonesianRegencyService {
 
+    private final RegencyClient indonesianRegencyClient;
     private final static String REGENCY_CODE_PATTERN = "^\\d{2}\\.\\d{2}\\.\\d{2}\\.\\d{4}$";
     private final static Pattern REGENCY_PATTERN = Pattern.compile(REGENCY_CODE_PATTERN);
     LRUCache<String, IndonesianRegency> cache = new LRUCache<>(20);
@@ -37,11 +41,11 @@ public class IndonesianAdministrationService implements IndonesianRegencyService
         return "";
     }
 
-    private boolean isValidCode(String code) {
+    private static boolean isValidCode(String code) {
         return REGENCY_PATTERN.matcher(code).matches();
     }
 
     private IndonesianRegency getIndonesianRegency(String code) {
-        return new IndonesianRegency(code, "name");
+        return indonesianRegencyClient.getIndonesianRegency(code);
     }
 }
